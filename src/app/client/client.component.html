@@ -1,0 +1,99 @@
+<app-menu></app-menu>
+
+<br>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-card>
+        <mat-card-content>
+            <form class="example-form" [formGroup]="options">
+
+                <mat-form-field class="example-full-width" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Nome</mat-label>
+                    <input matInput [(ngModel)]="client.name" formControlName="name" placeholder="Nome completo">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput [(ngModel)]="client.telephone" formControlName="telephone"
+                        placeholder="(99) 9 9999-9999">
+                </mat-form-field>
+
+                <label>CPF ou CNPJ: </label>
+                <mat-radio-group class="example-full-width" [formControl]="floatLabelControl" (change)="getCpfOrCnpj()">
+                    <mat-radio-button value="cpf">CPF</mat-radio-button>
+                    <mat-radio-button value="cnpj">CNPJ</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-form-field class="example-full-width" *ngIf="isCpf" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>CPF</mat-label>
+                    <input matInput formControlName="cpf" [(ngModel)]="client.cpf" placeholder="999.999.999-99">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" *ngIf="isCnpj" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>CNPJ</mat-label>
+                    <input matInput formControlName="cnpj" [(ngModel)]="client.cnpj" placeholder="99.999.999/9999-99">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" [floatLabel]="getFloatLabelValue()">
+                    <mat-label>CEP</mat-label>
+                    <input matInput formControlName="cep" [(ngModel)]="client.cep" placeholder="99.999-99">
+                </mat-form-field>
+
+
+                <button mat-flat-button class="example-full-width" (click)="createClient()"
+                    color="primary">Salvar</button>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</mat-grid-list>
+
+<br>
+<br>
+
+<mat-grid-list *ngIf="!loading" cols="2" rowHeight="2:1">
+
+    <mat-form-field [floatLabel]="getFloatLabelValue()" class="button-full-width">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Pesquisar" />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cpf">
+            <th mat-header-cell *matHeaderCellDef> CPF </th>
+            <td mat-cell *matCellDef="let row"> {{row.cpf}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cnpj">
+            <th mat-header-cell *matHeaderCellDef> CNPJ </th>
+            <td mat-cell *matCellDef="let row"> {{row.cnpj}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+            <th mat-header-cell *matHeaderCellDef> Telephone </th>
+            <td mat-cell *matCellDef="let row"> {{row.telephone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let row" class="button-action">
+                <button mat-button color="primary">Editar</button>
+                <button mat-button (click)="openDialog(row.id)" color="warn">Remover</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</mat-grid-list>
+<mat-paginator class="example-form" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

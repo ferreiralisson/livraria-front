@@ -1,0 +1,22 @@
+<div id="error-422" fxLayout="column" fxLayoutAlign="center center">
+
+    <div class="content" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="error-code">404</div>
+
+        <div class="message">Bem, você quebrou a internet!</div>
+
+        <div class="sub-message">
+            Brincadeira, parece que você recebeu o seguinte erro: {{message}}
+        </div>
+
+
+        <button 
+        mat-flat-button 
+        class="example-full-width" 
+        (click)="closeDialog()"
+        color="primary">Sair desta pagina</button>
+
+    </div>
+
+</div>

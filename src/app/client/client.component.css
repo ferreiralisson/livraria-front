@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+}
+
+.button-full-width {
+  width: 100%;
+}
+
+mat-progress-bar {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40em
+}
+
+mat-grid-list{
+  margin-left: auto;
+  margin-right: auto;
+  width: 40em
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.example-full-width {
+  width: 100%;
+}
